@@ -11,12 +11,12 @@ import { Tailwind } from "@react-email/tailwind";
 
 interface VerifyEmailProps {
   name: string;
-  verifyUrl: string;
+  otp: string;
 }
 
-export default function VerifyEmail({
+export default function VerifyEmailTemp({
   name,
-  verifyUrl,
+  otp,
 }: VerifyEmailProps) {
   return (
     <Html>
@@ -28,22 +28,18 @@ export default function VerifyEmail({
             <Heading className="text-lg sm:text-xl font-bold">
               Verify your email
             </Heading>
+            <br />
 
             <Text className="mt-4 text-gray-600 text-sm sm:text-base leading-6">
               Hi {name}, please click the button below to verify your email.
             </Text>
-
-            <Button
-              href={verifyUrl}
-              className="mt-6 inline-block w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-md font-medium text-sm sm:text-base"
-            >
-              Verify Email
-            </Button>
+            
+            <br />
 
             <Text className="text-xs text-gray-400 mt-6 break-words">
-              If the button doesn't work, copy and paste this link:
+             your otp for verification
               <br />
-              {verifyUrl}
+              {otp}
             </Text>
 
           </Container>
