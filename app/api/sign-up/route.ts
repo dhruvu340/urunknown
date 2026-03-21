@@ -1,10 +1,12 @@
 import dbConnect from "@/lib/dbConnect";
 import bcrypt from "bcrypt";
 import { sendVerificationEmail } from "@/helper/sendVerificationMail";
-import UserModel from "../models/model";
+import UserModel from "../../models/model";
 
 export async function POST(req: Request):Promise<Response> {
   await dbConnect();
+  console.log("db connected");
+  
 
   try {
     const { username, password, email } = await req.json();
@@ -86,4 +88,9 @@ export async function POST(req: Request):Promise<Response> {
       { status: 500 }
     );
   }
+}
+
+
+export async function GET(req:Request,res:Response){
+  return Response.json({success:true})
 }

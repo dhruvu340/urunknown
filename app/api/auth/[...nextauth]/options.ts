@@ -1,5 +1,6 @@
 import {NextAuthOptions} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+
 import bcrypt from "bcrypt"
 import UserModel from "@/app/models/model"
 import dbConnect from "@/lib/dbConnect"
@@ -7,6 +8,8 @@ import dbConnect from "@/lib/dbConnect"
 
 export const authOptions : NextAuthOptions = {
     providers : [
+        
+        
         CredentialsProvider({
             id:"credentials",
             name:"Credentials",
@@ -46,7 +49,7 @@ export const authOptions : NextAuthOptions = {
         })
     ],
     pages : {
-        signIn : "/signin"
+        signIn : "/sign-in"
     },
     session : {
         strategy : "jwt"
@@ -64,6 +67,7 @@ export const authOptions : NextAuthOptions = {
         } , 
 
         async jwt ({token,user}) {
+            await dbConnect()
             if(user){
     
                 token._id=user._id?.toString();
