@@ -3,7 +3,7 @@ import mongoose , { Schema , Document} from "mongoose";
 export interface Message extends Document{
     content : string ,
     createdAt: Date ,
-    updatedAt: Date ,
+   
 }
 
 const MessageSchema : Schema<Message> = new Schema ( {
@@ -25,7 +25,7 @@ export interface User extends Document{
     verifyCodeExpiry:Date,
     isverified:boolean,
     isAccepting:boolean,
-    message : Message[],
+    messages : Message[],
 }
 
 
@@ -37,7 +37,7 @@ const UserSchema : Schema<User> = new Schema ( {
     verifyCodeExpiry:{type:Date,required:[true,"expiry is required"]},
     isverified:{type:Boolean,default:false},
     isAccepting:{type:Boolean,default:true},
-    message : [MessageSchema],
+    messages : [MessageSchema],
 } )
 
 
