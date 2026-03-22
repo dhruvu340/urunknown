@@ -22,8 +22,8 @@ export const authOptions : NextAuthOptions = {
                 await dbConnect();
                 try {
                    const user = await UserModel.findOne({
-                        $or : [{email:credentials.identifier.email}]
-                    })
+  email: credentials.email
+})
 
                     if(!user){
                         throw new Error('No user Found with this email')
@@ -43,7 +43,7 @@ export const authOptions : NextAuthOptions = {
                     
 
                 } catch (err:any) {
-                    throw new Error(err)
+                    throw new Error(err.message || "Authentication failed");
                 }
             }
         })
@@ -56,9 +56,9 @@ export const authOptions : NextAuthOptions = {
     },
     secret:process.env.NEXTAUTH_SECRET,
     callbacks : {
-        async session ({session,token,user}){
+        async session ({session,token}){
             if(token){
-               session.user._id=user._id?.toString();
+               session.user._id=token._id?.toString();
                 session.user.isverified=token.isverified;
                 session.user.isAccepting =token.isAccepting;
                 session.user.userName=token.userName;
@@ -67,7 +67,7 @@ export const authOptions : NextAuthOptions = {
         } , 
 
         async jwt ({token,user}) {
-            await dbConnect()
+           
             if(user){
     
                 token._id=user._id?.toString();
