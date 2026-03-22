@@ -2,6 +2,8 @@
 import { streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 
+
+export const runtime = "edge";
 export async function POST(req: Request) {
   const { context } = await req.json();
 
