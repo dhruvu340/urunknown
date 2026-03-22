@@ -21,13 +21,13 @@ export async function POST(request:Request){
    const {acceptMessages} =  await request.json();
 
    try {
-   const user =  await UserModel.findByIdAndUpdate(
+   const foundUser =  await UserModel.findByIdAndUpdate(
     userId,
     {$set : { isAccepting : acceptMessages }},
     {new:true}
    )
 
-   if(!user){
+   if(!foundUser){
         return Response.json({
         success:false,
         message:"failed to update user status"
@@ -37,14 +37,60 @@ export async function POST(request:Request){
        return Response.json({
         success:true,
         message:"messageAcceptance status updated",
-        user,
+        foundUser,
     },{status:200})
     
    } catch (error) {
         return Response.json({
         success:false,
-        message:"failed some error occured to accept message",
+        message:"failed some error occured to accept message accepting status",
     },{status:401})
    }
+
+}
+
+
+export async function GET(request:Request){
+    await dbConnect();
+   const session = await getServerSession(authOptions);
+   
+   if(!session||!session.user){
+    return Response.json({
+        success:true,
+        message:"not authenticated"
+    },{status:401})
+   }
+
+   const user = session?.user ;
+
+   const userId=user._id;
+   
+try {
+    
+       const foundUser = await UserModel.findById(userId);
+    
+       if(!foundUser){
+         return Response.json({
+            success:false,
+            message:"failed to find User",
+        },{status:404})
+       }
+    
+    
+      return Response.json({
+            success:true,
+            message:"user status found",
+            isAccepting:foundUser.isAccepting,
+        },{status:200})
+    
+} catch (error) {
+    return Response.json({
+        success:false,
+        message:"failed some error occured to accept message accepting status",
+    },{status:401})
+}
+
+
+
 
 }
