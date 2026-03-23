@@ -28,7 +28,7 @@ const page = () => {
 
   const [issubmiting, setissubmiting] = useState(false)
 
-  const [debounceUsername] = useDebounceValue(username, 300) // ✅ fixed
+  const [debounceUsername] = useDebounceValue(username, 300) 
 
   const router = useRouter()
 
@@ -51,7 +51,7 @@ const page = () => {
           const response = await axios.get(
             `/api/check-username-unique?username=${debounceUsername}`
           )
-          setusernameMessage(response.data.message) // ✅ fixed
+          setusernameMessage(response.data.message) 
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>
           setusernameMessage(
@@ -87,86 +87,134 @@ const page = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-orange-500">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"> {/* ✅ fixed */}
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join Urunknown
-          </h1>
-          <p className="mb-4">
-            Sign up
-          </p>
-        </div>
-        <form id="sign-up" onSubmit={form.handleSubmit(onSubmit)}>
-        <FieldGroup className="flex flex-col justify-between">
-          <Controller 
+   <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-black to-gray-900 px-4">
+    
+    <div className="w-full max-w-lg p-6 sm:p-10 space-y-6 bg-white rounded-2xl shadow-xl">
+      
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl sm:text-4xl font-bold">
+          Join Urunknown 
+        </h1>
+        <p className="text-gray-500 text-sm sm:text-base">
+          Create your account
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+
+        {/* USERNAME */}
+        <Controller
           name="username"
           control={form.control}
-          render={({field,fieldState})=>(
+          render={({ field, fieldState }) => (
             <Field>
-              <FieldLabel htmlFor="username" className="text-lg">
-              Enter Username
+              <FieldLabel className="text-base font-semibold">
+                Username
               </FieldLabel>
-              <Input {...field} value={field.value as string ?? ""} id="username" placeholder="Username" className="text-lg" onChange={(e)=>{field.onChange(e.target.value)
-                setusername(e.target.value)
-              }}/>
-              {<div className="min-h-[20px]">
-  {fieldState.invalid && (
-    <FieldError errors={[fieldState.error]} />
-  )}
-</div>}  
-            </Field>
-            )
-          }
-            />
 
-            <Controller 
+              <Input
+                {...field}
+                value={field.value as string ?? ""}
+                placeholder="Enter username"
+                className="h-12 text-base px-4 
+                placeholder:text-gray-400 placeholder:text-sm
+                focus:ring-2 focus:ring-black"
+                onChange={(e) => {
+                  field.onChange(e.target.value)
+                  setusername(e.target.value)
+                }}
+              />
+
+              <div className="min-h-[18px] mt-1">
+                {fieldState.error && (
+                  <FieldError
+                    className="text-xs text-red-500"
+                    errors={[fieldState.error]}
+                  />
+                )}
+              </div>
+            </Field>
+          )}
+        />
+
+        {/* EMAIL */}
+        <Controller
           name="email"
           control={form.control}
-          render={({field,fieldState})=>(
+          render={({ field, fieldState }) => (
             <Field>
-              <FieldLabel htmlFor="email" className="text-lg">
-              Enter Email
+              <FieldLabel className="text-base font-semibold">
+                Email
               </FieldLabel>
-              <Input {...field} id="Email" placeholder="Email" className="text-lg" value={field.value as string ?? ""}/>
-              {<div className="min-h-[20px]">
-  {fieldState.invalid && (
-    <FieldError errors={[fieldState.error]} />
-  )}
-</div>}  
-            </Field>
-            )
-          }
-            />
 
-            <Controller 
+              <Input
+                {...field}
+                value={field.value as string ?? ""}
+                placeholder="Enter email"
+                className="h-12 text-base px-4 
+                placeholder:text-gray-400 placeholder:text-sm
+                focus:ring-2 focus:ring-black"
+              />
+
+              <div className="min-h-[18px] mt-1">
+                {fieldState.error && (
+                  <FieldError
+                    className="text-xs text-red-500"
+                    errors={[fieldState.error]}
+                  />
+                )}
+              </div>
+            </Field>
+          )}
+        />
+
+        {/* PASSWORD */}
+        <Controller
           name="password"
           control={form.control}
-          render={({field,fieldState})=>(
+          render={({ field, fieldState }) => (
             <Field>
-              <FieldLabel htmlFor="pasword" className="text-lg">
-              Enter Password
+              <FieldLabel className="text-base font-semibold">
+                Password
               </FieldLabel>
-              <Input {...field} id="password" placeholder="Password" className="text-lg" value={field.value as string ?? ""}/>
-              {<div className="min-h-[20px]">
-  {fieldState.invalid && (
-    <FieldError errors={[fieldState.error]} />
-  )}
-</div>}  
+
+              <Input
+                {...field}
+                type="password"
+                value={field.value as string ?? ""}
+                placeholder="Enter password"
+                className="h-12 text-base px-4 
+                placeholder:text-gray-400 placeholder:text-sm
+                focus:ring-2 focus:ring-black"
+              />
+
+              <div className="min-h-[18px] mt-1">
+                {fieldState.error && (
+                  <FieldError
+                    className="text-xs text-red-500"
+                    errors={[fieldState.error]}
+                  />
+                )}
+              </div>
             </Field>
-            )
-          }
-            />
+          )}
+        />
 
-        </FieldGroup>
-
-        <Button  className="mt-10" type="submit" disabled={issubmiting}>
-            Signup
+        {/* BUTTON */}
+        <Button
+          type="submit"
+          disabled={issubmiting}
+          className="w-full h-12 text-base font-semibold rounded-lg 
+          bg-black text-white hover:bg-gray-800 transition"
+        >
+          {issubmiting ? "Creating..." : "Sign Up"}
         </Button>
 
-        </form>
-      </div>
+      </form>
     </div>
+  </div>
   )
 }
 
