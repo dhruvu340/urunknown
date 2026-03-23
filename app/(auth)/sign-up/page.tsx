@@ -94,7 +94,7 @@ const Page = () => {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-black to-gray-900 px-4">
       <div className="w-full max-w-lg p-6 sm:p-10 space-y-6 bg-white rounded-2xl shadow-xl">
 
-        {/* Header */}
+        
         <div className="text-center space-y-2">
           <h1 className="text-3xl sm:text-4xl font-bold">
             Join Urunknown
@@ -104,10 +104,10 @@ const Page = () => {
           </p>
         </div>
 
-        {/* Form */}
+       
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
 
-          {/* USERNAME */}
+          
           <Controller
             name="username"
             control={form.control}
@@ -130,13 +130,13 @@ const Page = () => {
                     }}
                   />
 
-                  {/* Loader inside input */}
+                
                   {isCheckingUsername && (
                     <Loader2 className="absolute right-3 top-3 h-5 w-5 animate-spin text-gray-500" />
                   )}
                 </div>
 
-                {/* Error */}
+                
                 <div className="min-h-[18px] mt-1">
                   {fieldState.error && (
                     <FieldError
@@ -146,7 +146,7 @@ const Page = () => {
                   )}
                 </div>
 
-                {/* Username Availability Message */}
+               
                 {username && !fieldState.error && (
                   <p
                     className={`text-xs mt-1 ${
@@ -162,7 +162,7 @@ const Page = () => {
             )}
           />
 
-          {/* EMAIL */}
+          
           <Controller
             name="email"
             control={form.control}
@@ -191,7 +191,7 @@ const Page = () => {
             )}
           />
 
-          {/* PASSWORD */}
+          
           <Controller
             name="password"
             control={form.control}
@@ -221,7 +221,7 @@ const Page = () => {
             )}
           />
 
-          {/* BUTTON */}
+          
           <Button
             type="submit"
             disabled={isSubmitting || isCheckingUsername}
