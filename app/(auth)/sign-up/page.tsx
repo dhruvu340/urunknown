@@ -41,7 +41,6 @@ const Page = () => {
     },
   })
 
-  // ✅ Username Availability Check
   useEffect(() => {
     const checkUsernameUnique = async () => {
       if (!debouncedUsername) return
@@ -67,7 +66,7 @@ const Page = () => {
     checkUsernameUnique()
   }, [debouncedUsername])
 
-  // ✅ Submit
+  
   const onSubmit = async (data: z.infer<typeof SignUpValidation>) => {
     setIsSubmitting(true)
 

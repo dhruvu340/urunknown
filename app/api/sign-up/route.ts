@@ -13,7 +13,7 @@ export async function POST(req: Request):Promise<Response> {
 
     
     const existingUserByUserName = await UserModel.findOne({
-      userName: username,
+      username: username,
       isverified: true,
     });
 
@@ -37,7 +37,7 @@ export async function POST(req: Request):Promise<Response> {
         );
       }
 
-      
+      existingUser.username=username;
       existingUser.password = await bcrypt.hash(password, 10);
       existingUser.verifyCode = otp;
       existingUser.verifyCodeExpiry = expiryDate;
@@ -47,7 +47,7 @@ export async function POST(req: Request):Promise<Response> {
       const hashPass = await bcrypt.hash(password, 10);
 
       const newUser = new UserModel({
-        userName: username,
+        username: username,
         email,
         password: hashPass,
         verifyCode: otp,
