@@ -33,7 +33,23 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", geist.variable)}
     >
      <AuthProvider>
-       <body className="min-h-full flex flex-col">{children}<Toaster/></body>
+       <body className="min-h-full flex flex-col">{children}<Toaster
+  position="top-center"        // top-center works best on mobile
+  richColors                   // enables colored success/error styles
+  closeButton                  // adds an X button
+  toastOptions={{
+    style: {
+      borderRadius: "12px",
+      fontSize: "14px",
+      padding: "12px 16px",
+    },
+    classNames: {
+      error: "bg-red-50 text-red-800 border border-red-200",
+      success: "bg-green-50 text-green-800 border border-green-200",
+      warning: "bg-yellow-50 text-yellow-800 border border-yellow-200",
+    },
+  }}
+/></body>
        
      </AuthProvider>
     </html>

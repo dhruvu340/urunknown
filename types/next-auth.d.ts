@@ -5,14 +5,14 @@ declare module 'next-auth' {
         _id?:string,
         isverified?:boolean,
         isAccepting?:boolean,
-        userName?:string
+        username?:string
     }
     interface Session { 
         user:{
         _id?:string,
         isverified?:boolean,
         isAccepting?:boolean,
-        userName?:string
+        username?:string
     } & DefaultSession['user']
     }
 }
@@ -24,7 +24,7 @@ declare module 'next-auth/jwt'{
         _id?:string,
         isverified?:boolean,
         isAccepting?:boolean,
-        userName?:string
+        username?:string
         
     }
 }
